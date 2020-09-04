@@ -11,6 +11,8 @@ namespace heist2
             bool nameCheck = true;
             //used for adding members to heist
             bool crewCheck = true;
+            //Cut for heist
+            int heistProfits = 100;
 
             Random rand = new Random();
 
@@ -27,12 +29,12 @@ namespace heist2
             Muscle Akai = new Muscle();
             Akai.Name = "Akai";
             Akai.SkillLevel = 81;
-            Akai.PercentageCut = 41;
+            Akai.PercentageCut = 50;
 
             Muscle HeavyWeaponsGuy = new Muscle();
             HeavyWeaponsGuy.Name = "HeavyWeaponsGuy";
             HeavyWeaponsGuy.SkillLevel = 66;
-            HeavyWeaponsGuy.PercentageCut = 12;
+            HeavyWeaponsGuy.PercentageCut = 50;
 
             Muscle FatTimAllen = new Muscle();
             FatTimAllen.Name = "FatTimAllen";
@@ -42,7 +44,7 @@ namespace heist2
             LockSpecialist Genichiro = new LockSpecialist();
             Genichiro.Name = "Genichiro";
             Genichiro.SkillLevel = 81;
-            Genichiro.PercentageCut = 41;
+            Genichiro.PercentageCut = 0;
 
             //List of team members to choose from.///////////
             List<IRobber> rolodex = new List<IRobber>()
@@ -141,17 +143,17 @@ namespace heist2
             newBank.ReconReport();
 
             Console.WriteLine("~^*~^*~^*~^*Rogue Gallery*^~*^~*^~*^~");
-            int i = 0;
             foreach (IRobber member in rolodex)
             {
+                int i = rolodex.IndexOf(member);
                 Console.Write($"{i}.) ");
                 member.RolodexReport();
-                ++i;
             }
             Console.WriteLine("\nNow that you know who you've got to pick from, let's get to work...");
+
             while (crewCheck)
             {
-                Console.Write("Who do you want to add?: ");
+                Console.Write("\nWho do you want to add?: ");
                 string crewChoice = Console.ReadLine();
                 if (crewChoice == "")
                 {
@@ -161,13 +163,36 @@ namespace heist2
                 {
                     int crewChoiceNum = int.Parse(crewChoice);
                     crew.Add(rolodex[crewChoiceNum]);
+                    heistProfits -= rolodex[crewChoiceNum].PercentageCut;
+                    Console.WriteLine($"\n{heistProfits}");
+                    rolodex.RemoveAt(crewChoiceNum);
+                    foreach (IRobber member in rolodex)
+                    {
+                        if (member.PercentageCut < heistProfits)
+                        {
+                            int i = rolodex.IndexOf(member);
+                            Console.Write($"{i}.) ");
+                            member.RolodexReport();
+                        }
+                        else
+                        {
+                            int i = rolodex.IndexOf(member);
+                            Console.WriteLine($"{i}.) Sorry bub, they're too expensive.");
+
+                        }
+                    }
                 }
 
             }
+
+            Console.WriteLine("\n~^*~^*~^*~^*Your Team*^~*^~*^~*^~");
             foreach (IRobber member in crew)
             {
                 member.RolodexReport();
             }
+            Console.WriteLine("Let's get to work!");
+            Console.ReadLine();
+
         }
 
     }
