@@ -5,6 +5,7 @@ namespace heist2
     public class Muscle : IRobber
     {
         public string Name { get; set; }
+
         public int SkillLevel { get; set; }
 
         public int PercentageCut { get; set; }
@@ -17,6 +18,11 @@ namespace heist2
             {
                 Console.WriteLine($"{Name} has clobbered all the guards!");
             }
+        }
+
+        public void RolodexReport()
+        {
+            Console.WriteLine($"{Name}, The Muscle. Skill Level: {SkillLevel}. Asking Price: {PercentageCut}%.");
         }
     }
 }

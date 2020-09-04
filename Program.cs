@@ -8,6 +8,7 @@ namespace heist2
         static void Main(string[] args)
         {
             bool nameCheck = true;
+            Random rand = new Random();
 
             Hacker Strongbad = new Hacker();
             Strongbad.Name = "StrongBad";
@@ -53,7 +54,7 @@ namespace heist2
 
             while (nameCheck)
             {
-                Console.Write("Got some new blood in mind?: ");
+                Console.WriteLine("Got some new blood in mind?");
                 string Name = Console.ReadLine();
                 if (Name == "")
                 {
@@ -66,17 +67,18 @@ namespace heist2
                     Console.WriteLine("1.) Hacker,\n2.) Muscle,\n3.) LockSpecialist");
 
                     string choice = Console.ReadLine();
+                    //changes set of prompts and class generation based on user choice
                     switch (choice)
                     {
                         case "1":
                             Hacker newHacker = new Hacker();
                             newHacker.Name = Name;
 
-                            Console.Write("\nA hacker, eh...they any good? On, like, an arbitrary integer based scale of 1 - 100?: ");
+                            Console.WriteLine("\nA hacker, eh...they any good? On, like, an arbitrary integer based scale of 1 - 100?");
                             int SkillLevel = int.Parse(Console.ReadLine());
                             newHacker.SkillLevel = SkillLevel;
 
-                            Console.Write("\nI'll take your word for it...how much they want? Again, in an arbitrary 1-100 percentage kinda way: ");
+                            Console.WriteLine("\nI'll take your word for it...how much they want? Again, in an arbitrary 1-100 percentage kinda way");
                             int PercentageCut = int.Parse(Console.ReadLine());
                             newHacker.PercentageCut = PercentageCut;
 
@@ -87,11 +89,11 @@ namespace heist2
                             Muscle newMuscle = new Muscle();
                             newMuscle.Name = Name;
 
-                            Console.Write("\nA Muscle, eh...they any good? On, like, an arbitrary integer based scale of 1 - 100?: ");
+                            Console.WriteLine("\nA Muscle, eh...they any good? On, like, an arbitrary integer based scale of 1 - 100?");
                             SkillLevel = int.Parse(Console.ReadLine());
                             newMuscle.SkillLevel = SkillLevel;
 
-                            Console.Write("\nI'll take your word for it...how much they want? Again, in an arbitrary 1-100 percentage kinda way: ");
+                            Console.WriteLine("\nI'll take your word for it...how much they want? Again, in an arbitrary 1-100 percentage kinda way");
                             PercentageCut = int.Parse(Console.ReadLine());
                             newMuscle.PercentageCut = PercentageCut;
 
@@ -102,11 +104,11 @@ namespace heist2
                             LockSpecialist newLockSpecialist = new LockSpecialist();
                             newLockSpecialist.Name = Name;
 
-                            Console.Write("\nA LockSpecialist, eh...they any good? On, like, an arbitrary integer based scale of 1 - 100?: ");
+                            Console.WriteLine("\nA LockSpecialist, eh...they any good? On, like, an arbitrary integer based scale of 1 - 100?");
                             SkillLevel = int.Parse(Console.ReadLine());
                             newLockSpecialist.SkillLevel = SkillLevel;
 
-                            Console.Write("\nI'll take your word for it...how much they want? Again, in an arbitrary 1-100 percentage kinda way: ");
+                            Console.WriteLine("\nI'll take your word for it...how much they want? Again, in an arbitrary 1-100 percentage kinda way");
                             PercentageCut = int.Parse(Console.ReadLine());
                             newLockSpecialist.PercentageCut = PercentageCut;
 
@@ -117,9 +119,15 @@ namespace heist2
 
                 }
             }
-            foreach (IRobber member in rolodex)
-            {
-                Console.WriteLine($"{member.Name}, {member.SkillLevel}, {member.PercentageCut}");
+            Bank newBank = new Bank();
+            newBank.AlarmScore = rand.Next(0, 101);
+            newBank.VaultScore = rand.Next(0, 101);
+            newBank.SecurityGuardScore = rand.Next(0, 101);
+            newBank.CashOnHand = rand.Next(50_000, 1_000_000);
+            newBank.ReconReport();
+
+            foreach(IRobber member in rolodex){
+                member.RolodexReport();
             }
         }
 

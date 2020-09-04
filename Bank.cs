@@ -1,3 +1,5 @@
+using System;
+
 namespace heist2
 {
     public class Bank
@@ -6,8 +8,7 @@ namespace heist2
         public int AlarmScore { get; set; }
         public int VaultScore { get; set; }
         public int SecurityGuardScore { get; set; }
-
-        private bool IsSecure()
+        public bool IsSecure()
         {
             if (AlarmScore <= 0 && VaultScore <= 0 && SecurityGuardScore <= 0)
             {
@@ -16,6 +17,35 @@ namespace heist2
             else
             {
                 return true;
+            }
+        }
+
+        public void ReconReport()
+        {
+            if (AlarmScore > VaultScore && AlarmScore > SecurityGuardScore)
+            {
+                Console.WriteLine("Most Secure: Alarm");
+            }
+            else if (VaultScore > AlarmScore && VaultScore > SecurityGuardScore)
+            {
+                Console.WriteLine("Most Secure: Vault");
+            }
+            else
+            {
+                Console.WriteLine("Most Secure: Security Guards");
+            }
+
+            if (AlarmScore < VaultScore && AlarmScore < SecurityGuardScore)
+            {
+                Console.WriteLine("Least Secure: Alarm");
+            }
+            else if (VaultScore < AlarmScore && VaultScore < SecurityGuardScore)
+            {
+                Console.WriteLine("Least Secure: Vault");
+            }
+            else
+            {
+                Console.WriteLine("Least Secure: Security Guards");
             }
         }
     }

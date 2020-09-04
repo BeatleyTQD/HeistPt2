@@ -18,5 +18,10 @@ namespace heist2
                 Console.WriteLine($"{Name} has disabled the alarm system!");
             }
         }
+
+        public void RolodexReport()
+        {
+            Console.WriteLine($"{Name}, The Hacker. Skill Level: {SkillLevel}. Asking Price: {PercentageCut}%.");
+        }
     }
 }

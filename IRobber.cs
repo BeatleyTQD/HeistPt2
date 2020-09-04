@@ -9,5 +9,10 @@ namespace heist2
         {
 
         }
+
+        void RolodexReport()
+        {
+
+        }
     }
 }
