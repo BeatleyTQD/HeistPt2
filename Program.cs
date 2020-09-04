@@ -204,12 +204,22 @@ namespace heist2
 
             if (newBank.AlarmScore > 0 && newBank.VaultScore > 0 && newBank.SecurityGuardScore > 0)
             {
-                Console.WriteLine("What are you doing?! You're gonna get us killed!");
+                Console.WriteLine("\nWhat are you doing?! You're gonna get us killed!");
             }
             else
             {
-                Console.WriteLine("We're eatin' good tonight, crew!");
+                Console.WriteLine("\nWe're eatin' good tonight, crew!");
+                int takeHomePercent = newBank.CashOnHand / 100;
+                Console.WriteLine($"Of the stolen ${newBank.CashOnHand}");
+                foreach (IRobber member in crew)
+                {
+                    int memberProfit = takeHomePercent * member.PercentageCut;
+                    Console.WriteLine($"{member.Name} took home ${memberProfit}");
+                    newBank.CashOnHand -= memberProfit;
+                }
+                Console.WriteLine($"Which leaves you with ${newBank.CashOnHand}. Enjoy!");
             }
+
         }
 
     }
