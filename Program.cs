@@ -153,7 +153,7 @@ namespace heist2
 
             while (crewCheck)
             {
-                Console.Write("\nWho do you want to add?: ");
+                Console.Write($"\nYou've got {heistProfits}% profit remaining, who do you want to hire?: ");
                 string crewChoice = Console.ReadLine();
                 if (crewChoice == "")
                 {
@@ -162,10 +162,13 @@ namespace heist2
                 else
                 {
                     int crewChoiceNum = int.Parse(crewChoice);
+                    //Adds selection to new crew
                     crew.Add(rolodex[crewChoiceNum]);
+                    //Subtracts PercentageCut from heistProfits
                     heistProfits -= rolodex[crewChoiceNum].PercentageCut;
-                    Console.WriteLine($"\n{heistProfits}");
+                    //Removes selection from rolodex
                     rolodex.RemoveAt(crewChoiceNum);
+
                     foreach (IRobber member in rolodex)
                     {
                         if (member.PercentageCut < heistProfits)
@@ -193,6 +196,20 @@ namespace heist2
             Console.WriteLine("Let's get to work!");
             Console.ReadLine();
 
+            foreach (IRobber member in crew)
+            {
+                member.PerformSkill(newBank);
+            }
+            newBank.IsSecure();
+
+            if (newBank.AlarmScore > 0 && newBank.VaultScore > 0 && newBank.SecurityGuardScore > 0)
+            {
+                Console.WriteLine("What are you doing?! You're gonna get us killed!");
+            }
+            else
+            {
+                Console.WriteLine("We're eatin' good tonight, crew!");
+            }
         }
 
     }
