@@ -22,6 +22,8 @@ namespace heist2
 
         public void ReconReport()
         {
+            Console.WriteLine("//////////////////BANK REPORT//////////////////");
+
             if (AlarmScore > VaultScore && AlarmScore > SecurityGuardScore)
             {
                 Console.WriteLine("Most Secure: Alarm");
@@ -47,6 +49,10 @@ namespace heist2
             {
                 Console.WriteLine("Least Secure: Security Guards");
             }
+            Console.WriteLine("///////////////////////////////////////////////");
+
+            Console.WriteLine();
+            Console.ReadLine();
         }
     }
 }

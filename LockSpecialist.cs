@@ -22,7 +22,7 @@ namespace heist2
 
         public void RolodexReport()
         {
-            Console.WriteLine($"{Name}, The Lock Specialist. Skill Level: {SkillLevel}. Asking Price: {PercentageCut}%.");
+            Console.WriteLine($"{Name} The Lock Specialist. Skill Level: {SkillLevel}. Asking Price: {PercentageCut}%.");
         }
     }
 }

@@ -7,7 +7,11 @@ namespace heist2
     {
         static void Main(string[] args)
         {
+            //used for adding new member at the beginning
             bool nameCheck = true;
+            //used for adding members to heist
+            bool crewCheck = true;
+
             Random rand = new Random();
 
             Hacker Strongbad = new Hacker();
@@ -40,6 +44,7 @@ namespace heist2
             Genichiro.SkillLevel = 81;
             Genichiro.PercentageCut = 41;
 
+            //List of team members to choose from.///////////
             List<IRobber> rolodex = new List<IRobber>()
             {
                 Strongbad,
@@ -49,9 +54,14 @@ namespace heist2
                 FatTimAllen,
                 Genichiro
             };
+
+            //User constructed team for the heist.////////////
+            List<IRobber> crew = new List<IRobber>();
+
             Console.WriteLine("I knew we'd see you again...funds dryin' up?");
             Console.WriteLine($"There are currently {rolodex.Count} operatives in your black book. \n");
 
+            //Prompts continue until user enters no name for a new robber.
             while (nameCheck)
             {
                 Console.WriteLine("Got some new blood in mind?");
@@ -119,6 +129,10 @@ namespace heist2
 
                 }
             }
+            Console.WriteLine("\nWell, let's get started then...\n");
+            Console.ReadLine();
+
+            //Generates a new bank with random security values.
             Bank newBank = new Bank();
             newBank.AlarmScore = rand.Next(0, 101);
             newBank.VaultScore = rand.Next(0, 101);
@@ -126,7 +140,32 @@ namespace heist2
             newBank.CashOnHand = rand.Next(50_000, 1_000_000);
             newBank.ReconReport();
 
-            foreach(IRobber member in rolodex){
+            Console.WriteLine("~^*~^*~^*~^*Rogue Gallery*^~*^~*^~*^~");
+            int i = 0;
+            foreach (IRobber member in rolodex)
+            {
+                Console.Write($"{i}.) ");
+                member.RolodexReport();
+                ++i;
+            }
+            Console.WriteLine("\nNow that you know who you've got to pick from, let's get to work...");
+            while (crewCheck)
+            {
+                Console.Write("Who do you want to add?: ");
+                string crewChoice = Console.ReadLine();
+                if (crewChoice == "")
+                {
+                    crewCheck = false;
+                }
+                else
+                {
+                    int crewChoiceNum = int.Parse(crewChoice);
+                    crew.Add(rolodex[crewChoiceNum]);
+                }
+
+            }
+            foreach (IRobber member in crew)
+            {
                 member.RolodexReport();
             }
         }
